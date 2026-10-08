@@ -41,8 +41,8 @@
       "matchStrings": [
         "ARG HOMEBOX_VERSION=[\"']?(?<currentValue>.+?)[\"']?\\s+"
       ],
-      "datasourceTemplate": "github-releases",
-      "depNameTemplate": "sysadminsmedia/homebox",
+      "datasourceTemplate": "github-tags",
+      "depNameTemplate": "kashif-khan/homebox",
       "versioningTemplate": "loose",
       "extractVersionTemplate": "^v(?<version>.*)$"
     },
@@ -85,7 +85,7 @@
       "enabled": false
     },
     {
-      "matchDepNames": ["sysadminsmedia/homebox"],
+      "matchDepNames": ["kashif-khan/homebox"],
       "matchUpdateTypes": ["patch"],
       "automerge": true
     },

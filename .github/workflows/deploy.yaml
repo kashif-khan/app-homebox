@@ -3,9 +3,6 @@ name: Deploy
 
 # yamllint disable-line rule:truthy
 on:
-  push:
-    branches:
-      - main
   release:
     types:
       - published
@@ -27,5 +24,9 @@ jobs:
       contents: read
       packages: write
     uses: hassio-addons/workflows/.github/workflows/app-deploy.yaml@e0c532a7b0fb264b3ff0c718c2c0308a0c8c1390 # v4.0.0
+    with:
+      repository: ha-apps
+      repository_beta: ha-apps
+      repository_edge: ha-apps
     secrets:
       DISPATCH_TOKEN: ${{ secrets.DISPATCH_TOKEN }}

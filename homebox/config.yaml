@@ -3,7 +3,7 @@ name: Homebox
 version: dev
 slug: homebox
 description: Inventory and organization system for the things in your home
-url: https://github.com/hassio-addons/app-homebox
+url: https://github.com/kashif-khan/app-homebox
 ingress: true
 ingress_port: 1337
 ingress_stream: true
