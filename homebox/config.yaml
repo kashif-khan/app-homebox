@@ -24,6 +24,8 @@ options:
   allow_registration: true
   auto_increment_asset_id: true
   max_upload_size: 10
+  allow_local_login: true
+  oidc_enabled: false
   ssl: false
   certfile: fullchain.pem
   keyfile: privkey.pem
@@ -38,6 +40,18 @@ schema:
   smtp_from: email?
   smtp_user: str?
   smtp_password: password?
+  allow_local_login: bool
+  oidc_enabled: bool
+  oidc_issuer_url: url?
+  oidc_client_id: str?
+  oidc_client_secret: password?
+  oidc_scope: str?
+  oidc_allowed_groups: str?
+  oidc_group_claim: str?
+  oidc_email_claim: str?
+  oidc_name_claim: str?
+  oidc_auto_redirect: bool?
+  oidc_verify_email: bool?
   ssl: bool
   certfile: str
   keyfile: str

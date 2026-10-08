@@ -160,6 +160,67 @@ The username for the mail server, usually the same as the sender address.
 
 The password that goes with the SMTP username.
 
+### Option: `allow_local_login`
+
+Allows signing in with a username and password, and is `true` by default. Turn
+it off only once single sign-on works, or you will lock yourself out.
+
+### Option: `oidc_enabled`
+
+Turns on single sign-on through an OpenID Connect provider such as Authentik,
+Authelia or Keycloak, and is `false` by default. When on, `oidc_issuer_url`,
+`oidc_client_id` and `oidc_client_secret` are required.
+
+In your provider, register the redirect (callback) URL
+`https://<your-address>/api/v1/users/login/oidc/callback`. Homebox requires
+HTTPS for this in production, so use an address that goes through a TLS
+terminating proxy or [`ssl`](#option-ssl), and set [`base_url`](#option-base_url)
+to match. Sign-in is not reachable through the Ingress panel; use
+[direct access](#direct-access).
+
+### Option: `oidc_issuer_url`
+
+The issuer URL of the provider. It must match what the provider advertises
+exactly.
+
+### Option: `oidc_client_id`
+
+The client ID created for Homebox at the provider.
+
+### Option: `oidc_client_secret`
+
+The client secret created for Homebox at the provider.
+
+### Option: `oidc_scope`
+
+The scopes to request. Homebox defaults to `openid profile email`; add `groups`
+here if your provider needs it to send group claims.
+
+### Option: `oidc_allowed_groups`
+
+Restricts sign-in to members of these groups. Leave empty to allow everyone the
+provider authenticates.
+
+### Option: `oidc_group_claim`
+
+The claim holding the user's groups. Homebox defaults to `groups`.
+
+### Option: `oidc_email_claim`
+
+The claim holding the user's email address. Homebox defaults to `email`.
+
+### Option: `oidc_name_claim`
+
+The claim holding the user's display name. Homebox defaults to `name`.
+
+### Option: `oidc_auto_redirect`
+
+Sends users straight to the provider instead of showing the login form.
+
+### Option: `oidc_verify_email`
+
+Requires the provider to report the email address as verified.
+
 ### Option: `ssl`
 
 Enables/Disables SSL (HTTPS) on the web interface. Set it `true` to enable it,

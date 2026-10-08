@@ -75,6 +75,52 @@ if bashio::config.has_value 'smtp_host'; then
         HBOX_MAILER_USERNAME HBOX_MAILER_PASSWORD
 fi
 
+HBOX_OPTIONS_ALLOW_LOCAL_LOGIN=$(bashio::config 'allow_local_login' 'true')
+export HBOX_OPTIONS_ALLOW_LOCAL_LOGIN
+
+# Single sign-on through an OpenID Connect provider. The optional settings are
+# only passed on when set, so Homebox keeps its own defaults for the rest.
+if bashio::config.true 'oidc_enabled'; then
+    bashio::config.require 'oidc_issuer_url' 'The OIDC issuer URL is required'
+    bashio::config.require 'oidc_client_id' 'The OIDC client ID is required'
+    bashio::config.require 'oidc_client_secret' 'The OIDC client secret is required'
+
+    export HBOX_OIDC_ENABLED="true"
+    HBOX_OIDC_ISSUER_URL=$(bashio::config 'oidc_issuer_url')
+    HBOX_OIDC_CLIENT_ID=$(bashio::config 'oidc_client_id')
+    HBOX_OIDC_CLIENT_SECRET=$(bashio::config 'oidc_client_secret')
+    export HBOX_OIDC_ISSUER_URL HBOX_OIDC_CLIENT_ID HBOX_OIDC_CLIENT_SECRET
+
+    if bashio::config.has_value 'oidc_scope'; then
+        HBOX_OIDC_SCOPE=$(bashio::config 'oidc_scope')
+        export HBOX_OIDC_SCOPE
+    fi
+    if bashio::config.has_value 'oidc_allowed_groups'; then
+        HBOX_OIDC_ALLOWED_GROUPS=$(bashio::config 'oidc_allowed_groups')
+        export HBOX_OIDC_ALLOWED_GROUPS
+    fi
+    if bashio::config.has_value 'oidc_group_claim'; then
+        HBOX_OIDC_GROUP_CLAIM=$(bashio::config 'oidc_group_claim')
+        export HBOX_OIDC_GROUP_CLAIM
+    fi
+    if bashio::config.has_value 'oidc_email_claim'; then
+        HBOX_OIDC_EMAIL_CLAIM=$(bashio::config 'oidc_email_claim')
+        export HBOX_OIDC_EMAIL_CLAIM
+    fi
+    if bashio::config.has_value 'oidc_name_claim'; then
+        HBOX_OIDC_NAME_CLAIM=$(bashio::config 'oidc_name_claim')
+        export HBOX_OIDC_NAME_CLAIM
+    fi
+    if bashio::config.has_value 'oidc_auto_redirect'; then
+        HBOX_OIDC_AUTO_REDIRECT=$(bashio::config 'oidc_auto_redirect')
+        export HBOX_OIDC_AUTO_REDIRECT
+    fi
+    if bashio::config.has_value 'oidc_verify_email'; then
+        HBOX_OIDC_VERIFY_EMAIL=$(bashio::config 'oidc_verify_email')
+        export HBOX_OIDC_VERIFY_EMAIL
+    fi
+fi
+
 bashio::log.info "Starting Homebox..."
 
 exec homebox
