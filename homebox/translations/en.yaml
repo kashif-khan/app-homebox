@@ -47,6 +47,55 @@ configuration:
   smtp_password:
     name: SMTP password
     description: The password that goes with the SMTP username.
+  allow_local_login:
+    name: Allow password login
+    description: >-
+      Lets people sign in with a username and password. Turn it off only once
+      single sign-on works, or you will lock yourself out.
+  oidc_enabled:
+    name: Single sign-on (OIDC)
+    description: >-
+      Turns on sign-in through an OpenID Connect provider such as Google,
+      Authentik, Authelia or Keycloak. Needs the issuer URL, client ID and
+      client secret below, and a public https address in the Base URL.
+  oidc_issuer_url:
+    name: OIDC issuer URL
+    description: >-
+      The issuer of the provider, exactly as it advertises it. For Google it is
+      `https://accounts.google.com`, without a trailing slash.
+  oidc_client_id:
+    name: OIDC client ID
+    description: The client ID created for Homebox at the provider.
+  oidc_client_secret:
+    name: OIDC client secret
+    description: The client secret created for Homebox at the provider.
+  oidc_scope:
+    name: OIDC scope
+    description: >-
+      The scopes to request. Leave it empty for `openid profile email`, which
+      works with Google.
+  oidc_allowed_groups:
+    name: OIDC allowed groups
+    description: >-
+      Restricts sign-in to members of these groups. Leave it empty to allow
+      everybody the provider authenticates. Google has no groups.
+  oidc_group_claim:
+    name: OIDC group claim
+    description: The claim holding the user's groups. Empty means `groups`.
+  oidc_email_claim:
+    name: OIDC email claim
+    description: The claim holding the user's email address. Empty means `email`.
+  oidc_name_claim:
+    name: OIDC name claim
+    description: The claim holding the user's display name. Empty means `name`.
+  oidc_auto_redirect:
+    name: OIDC auto redirect
+    description: Sends people straight to the provider instead of the login form.
+  oidc_verify_email:
+    name: OIDC verify email
+    description: >-
+      Requires the provider to report the email address as verified. Recommended
+      with Google.
   backup_google_client_id:
     name: Backup Google client ID
     description: >-
