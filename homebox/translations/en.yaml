@@ -3,16 +3,15 @@ configuration:
   log_level:
     name: Log level
     description: >-
-      Controls the level of log output by the app and can be changed to be
-      more or less verbose, which might be useful when you are dealing with
-      an unknown issue. Each level automatically includes the messages of a
-      more severe level.
+      Controls the level of log output by the app and can be changed to be more
+      or less verbose, which might be useful when you are dealing with an unknown
+      issue. Each level automatically includes the messages of a more severe level.
   base_url:
     name: Base URL
     description: >-
-      The address this app is reached at, for example
-      `https://homebox.example.com`. Used for the links in the mail Homebox
-      sends. Leave it empty when you only use this app from your own network.
+      The address this app is reached at from the outside. Used for the links in
+      the mail Homebox sends, and required for single sign-on. Leave it empty when
+      you only use this app from your own network. Example: `https://homebox.khaniks.com`.
   allow_registration:
     name: Allow registration
     description: >-
@@ -22,72 +21,85 @@ configuration:
   auto_increment_asset_id:
     name: Automatic asset IDs
     description: >-
-      Give every new item the next number in sequence, which is what you write
-      on the printed labels. Turn it off if you keep your own numbering.
+      Give every new item the next number in sequence, which is what you write on
+      the printed labels. Turn it off if you keep your own numbering.
   max_upload_size:
     name: Maximum upload size
     description: >-
-      The largest single file that can be attached to an item, in megabytes.
-      Photos straight off a phone are regularly larger than the default of 10.
+      The largest single file that can be attached to an item, in megabytes. Photos
+      straight off a phone are regularly larger than the default of 10.
   smtp_host:
     name: SMTP host
     description: >-
-      The mail server used to send password resets and invitations. Leave it
-      empty to switch email off entirely.
+      The mail server used to send password resets and invitations. Leave it empty
+      to switch email off entirely. Example: `smtp-relay.brevo.com` (Brevo) or `smtp.gmail.com`
+      (Gmail).
   smtp_port:
     name: SMTP port
-    description: The port of the mail server, usually 587.
+    description: "The port of the mail server, usually 587. Example: `587`."
   smtp_from:
     name: SMTP sender address
-    description: The address the mail from this app is sent from.
+    description: >-
+      The address the mail from this app is sent from. Example: `homebox@khaniks.com`.
+      It must be an address your mail service has verified.
   smtp_user:
     name: SMTP username
     description: >-
       The username for the mail server, usually the same as the sender address.
+      Example: `a1b2c3@smtp-brevo.com` (Brevo shows it under SMTP & API) or your
+      full Gmail address.
   smtp_password:
     name: SMTP password
-    description: The password that goes with the SMTP username.
+    description: >-
+      The password that goes with the SMTP username. Example: the SMTP key from
+      Brevo, or a 16-character Gmail app password. Not your account password.
   allow_local_login:
     name: Allow password login
     description: >-
-      Lets people sign in with a username and password. Turn it off only once
-      single sign-on works, or you will lock yourself out.
+      Lets people sign in with a username and password. Turn it off only once single
+      sign-on works, or you will lock yourself out.
   oidc_enabled:
     name: Single sign-on (OIDC)
     description: >-
-      Turns on sign-in through an OpenID Connect provider such as Google,
-      Authentik, Authelia or Keycloak. Needs the issuer URL, client ID and
-      client secret below, and a public https address in the Base URL.
+      Turns on sign-in through an OpenID Connect provider such as Google, Authentik,
+      Authelia or Keycloak. Needs the issuer URL, client ID and client secret below,
+      and a public https address in the Base URL.
   oidc_issuer_url:
     name: OIDC issuer URL
     description: >-
-      The issuer of the provider, exactly as it advertises it. For Google it is
-      `https://accounts.google.com`, without a trailing slash.
+      The issuer of the provider, exactly as it advertises it, without a trailing
+      slash. Example (Google): `https://accounts.google.com`.
   oidc_client_id:
     name: OIDC client ID
-    description: The client ID created for Homebox at the provider.
+    description: >-
+      The client ID created for Homebox at the provider. Example: `1234567890-abcdefg.apps.googleusercontent.com`.
   oidc_client_secret:
     name: OIDC client secret
-    description: The client secret created for Homebox at the provider.
+    description: >-
+      The client secret created for Homebox at the provider. Example: `GOCSPX-xxxxxxxxxxxxxxxx`.
   oidc_scope:
     name: OIDC scope
     description: >-
-      The scopes to request. Leave it empty for `openid profile email`, which
-      works with Google.
+      The scopes to request. Leave it empty for `openid profile email`, which works
+      with Google. Example: `openid profile email groups`.
   oidc_allowed_groups:
     name: OIDC allowed groups
     description: >-
-      Restricts sign-in to members of these groups. Leave it empty to allow
-      everybody the provider authenticates. Google has no groups.
+      Restricts sign-in to members of these groups. Leave it empty to allow everybody
+      the provider authenticates. Google has no groups. Example: `homebox-users`.
   oidc_group_claim:
     name: OIDC group claim
-    description: The claim holding the user's groups. Empty means `groups`.
+    description: >-
+      The claim holding the user's groups. Empty means `groups`. Example: `groups`.
   oidc_email_claim:
     name: OIDC email claim
-    description: The claim holding the user's email address. Empty means `email`.
+    description: >-
+      The claim holding the user's email address. Empty means `email`. Example:
+      `email`.
   oidc_name_claim:
     name: OIDC name claim
-    description: The claim holding the user's display name. Empty means `name`.
+    description: >-
+      The claim holding the user's display name. Empty means `name`. Example: `name`.
   oidc_auto_redirect:
     name: OIDC auto redirect
     description: Sends people straight to the provider instead of the login form.
@@ -99,54 +111,60 @@ configuration:
   backup_google_client_id:
     name: Backup Google client ID
     description: >-
-      The client ID of the Google OAuth app used for backups to Google Drive.
-      Backups are asked for their own consent inside Homebox, separate from
-      signing in.
+      The client ID of the Google OAuth app used for backups to Google Drive. Backups
+      are asked for their own consent inside Homebox, separate from signing in.
+      Example: `1234567890-abcdefg.apps.googleusercontent.com`.
   backup_google_client_secret:
     name: Backup Google client secret
-    description: The client secret that goes with the Google client ID.
+    description: >-
+      The client secret that goes with the Google client ID. Example: `GOCSPX-xxxxxxxxxxxxxxxx`.
   backup_microsoft_client_id:
     name: Backup Microsoft client ID
     description: >-
-      The application ID of the Microsoft Entra app used for backups to
-      OneDrive.
+      The application ID of the Microsoft Entra app used for backups to OneDrive.
+      Example: `00000000-0000-0000-0000-000000000000`.
   backup_microsoft_client_secret:
     name: Backup Microsoft client secret
-    description: The client secret that goes with the Microsoft application ID.
+    description: >-
+      The client secret that goes with the Microsoft application ID. Example: the
+      secret value from the app registration.
   backup_microsoft_tenant:
     name: Backup Microsoft tenant
     description: >-
-      `common` (any account) when empty, or a tenant ID, `consumers` or
-      `organizations` to restrict who can connect a OneDrive.
+      `common` (any account) when empty, or a tenant ID, `consumers` or `organizations`
+      to restrict who can connect a OneDrive. Example: `consumers` for personal
+      Microsoft accounts only.
   backup_dropbox_client_id:
     name: Backup Dropbox app key
-    description: The app key of the Dropbox app used for backups to Dropbox.
+    description: >-
+      The app key of the Dropbox app used for backups to Dropbox. Example: `abc123def456ghi`.
   backup_dropbox_client_secret:
     name: Backup Dropbox app secret
-    description: The app secret that goes with the Dropbox app key.
+    description: >-
+      The app secret that goes with the Dropbox app key. Example: `xyz789uvw012rst`.
   backup_allow_custom_endpoints:
     name: Allow custom backup endpoints
     description: >-
-      Lets collection owners send backups to SFTP, WebDAV and SMB servers and
-      S3-compatible endpoints of their choosing. Each one is a connection this
-      app makes to wherever it can reach, so leave it off unless you need it.
+      Lets collection owners send backups to SFTP, WebDAV and SMB servers and S3-compatible
+      endpoints of their choosing. Each one is a connection this app makes to wherever
+      it can reach, so leave it off unless you need it.
   ssl:
     name: SSL
     description: >-
-      Enables/Disables encrypted SSL (HTTPS) for direct access to the app.
-      This setting has no effect on the Ingress service.
+      Enables/Disables encrypted SSL (HTTPS) for direct access to the app. This
+      setting has no effect on the Ingress service.
   certfile:
     name: Certificate file
     description: >-
-      The certificate file to use for SSL. The file must be stored in the
-      `/ssl/` directory.
+      The certificate file to use for SSL. The file must be stored in the `/ssl/`
+      directory.
   keyfile:
     name: Private key file
     description: >-
-      The private key file to use for SSL. The file must be stored in the
-      `/ssl/` directory.
+      The private key file to use for SSL. The file must be stored in the `/ssl/`
+      directory.
 network:
   7745/tcp: >-
-    Web interface and API. Not required for Ingress. Expose this port when
-    something outside Home Assistant needs to reach Homebox, such as a phone
-    scanning the QR code on a printed label, or a reverse proxy of your own.
+    Web interface and API. Not required for Ingress. Expose this port when something
+    outside Home Assistant needs to reach Homebox, such as a phone scanning the
+    QR code on a printed label, or a reverse proxy of your own.
