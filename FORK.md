@@ -19,6 +19,9 @@ Home Assistant Community Apps layout:
 
 ## Releasing
 
+Short version: do step 1 by hand, then run `scripts/release.sh <version>`, which
+does steps 2 and 3 after asking you to confirm.
+
 1. Tag the application: push `v<version>` to `kashif-khan/homebox`.
 2. Set `HOMEBOX_VERSION` in `homebox/Dockerfile` to that version.
 3. Publish a GitHub release `v<version>` on this repository. The Deploy
