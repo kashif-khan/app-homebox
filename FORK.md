@@ -3,11 +3,11 @@
 This repository is the middle layer of a three-layer chain, modelled on the
 Home Assistant Community Apps layout:
 
-| Layer | Here | Community equivalent |
-| ----- | ---- | -------------------- |
-| App store | [kashif-khan/ha-apps](https://github.com/kashif-khan/ha-apps) | hassio-addons/repository |
-| App packaging | this repository (`kashif-khan/app-homebox`) | hassio-addons/app-homebox |
-| Application | [kashif-khan/homebox](https://github.com/kashif-khan/homebox) | sysadminsmedia/homebox |
+| Layer         | Here                                                          | Community equivalent      |
+| ------------- | ------------------------------------------------------------- | ------------------------- |
+| App store     | [kashif-khan/ha-apps](https://github.com/kashif-khan/ha-apps) | hassio-addons/repository  |
+| App packaging | this repository (`kashif-khan/app-homebox`)                   | hassio-addons/app-homebox |
+| Application   | [kashif-khan/homebox](https://github.com/kashif-khan/homebox) | sysadminsmedia/homebox    |
 
 - `main` mirrors `upstream/main` (hassio-addons/app-homebox) and is never
   committed to.
