@@ -24,7 +24,9 @@ tag="v${version}"
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
 [[ "$(git branch --show-current)" == "${BRANCH}" ]] || die "switch to ${BRANCH} first"
-git diff --quiet && git diff --cached --quiet || die "commit or stash your changes first"
+if ! git diff --quiet || ! git diff --cached --quiet; then
+    die "commit or stash your changes first"
+fi
 
 git ls-remote --exit-code --tags "git@github.com:${FORK_REPO}.git" "refs/tags/${tag}" > /dev/null \
     || die "tag ${tag} not found on ${FORK_REPO}; in the homebox repo run: git tag ${tag} && git push origin ${tag}"
