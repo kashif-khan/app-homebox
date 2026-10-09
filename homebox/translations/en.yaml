@@ -47,6 +47,40 @@ configuration:
   smtp_password:
     name: SMTP password
     description: The password that goes with the SMTP username.
+  backup_google_client_id:
+    name: Backup Google client ID
+    description: >-
+      The client ID of the Google OAuth app used for backups to Google Drive.
+      Backups are asked for their own consent inside Homebox, separate from
+      signing in.
+  backup_google_client_secret:
+    name: Backup Google client secret
+    description: The client secret that goes with the Google client ID.
+  backup_microsoft_client_id:
+    name: Backup Microsoft client ID
+    description: >-
+      The application ID of the Microsoft Entra app used for backups to
+      OneDrive.
+  backup_microsoft_client_secret:
+    name: Backup Microsoft client secret
+    description: The client secret that goes with the Microsoft application ID.
+  backup_microsoft_tenant:
+    name: Backup Microsoft tenant
+    description: >-
+      `common` (any account) when empty, or a tenant ID, `consumers` or
+      `organizations` to restrict who can connect a OneDrive.
+  backup_dropbox_client_id:
+    name: Backup Dropbox app key
+    description: The app key of the Dropbox app used for backups to Dropbox.
+  backup_dropbox_client_secret:
+    name: Backup Dropbox app secret
+    description: The app secret that goes with the Dropbox app key.
+  backup_allow_custom_endpoints:
+    name: Allow custom backup endpoints
+    description: >-
+      Lets collection owners send backups to SFTP, WebDAV and SMB servers and
+      S3-compatible endpoints of their choosing. Each one is a connection this
+      app makes to wherever it can reach, so leave it off unless you need it.
   ssl:
     name: SSL
     description: >-

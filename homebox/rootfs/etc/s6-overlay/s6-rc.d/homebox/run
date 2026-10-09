@@ -5,6 +5,8 @@
 # Runs the Homebox server
 # ==============================================================================
 declare log_level
+declare option
+declare value
 
 export HBOX_MODE="production"
 
@@ -35,6 +37,12 @@ export HBOX_OPTIONS_GITHUB_RELEASE_CHECK="false"
 # Kept out of the database on purpose; see the init script that makes it.
 HBOX_AUTH_API_KEY_PEPPER=$(</data/homebox/api_key_pepper)
 export HBOX_AUTH_API_KEY_PEPPER
+
+# Scheduled and remote backups. The key seals the stored destination
+# credentials; see the init script that makes it.
+HBOX_BACKUP_ENCRYPTION_KEY=$(</data/homebox/backup_encryption_key)
+export HBOX_BACKUP_ENCRYPTION_KEY
+export HBOX_BACKUP_LOCAL_ROOT="/data/homebox/backups"
 
 # Homebox has fewer levels of its own, and spells "warning" differently.
 log_level="info"
@@ -120,6 +128,25 @@ if bashio::config.true 'oidc_enabled'; then
         export HBOX_OIDC_VERIFY_EMAIL
     fi
 fi
+
+# OAuth apps for the cloud-drive backup destinations. A drive is only offered
+# inside Homebox when both its client ID and secret are set.
+declare -A backup_options=(
+    [backup_google_client_id]=HBOX_BACKUP_GOOGLE_CLIENT_ID
+    [backup_google_client_secret]=HBOX_BACKUP_GOOGLE_CLIENT_SECRET
+    [backup_microsoft_client_id]=HBOX_BACKUP_MICROSOFT_CLIENT_ID
+    [backup_microsoft_client_secret]=HBOX_BACKUP_MICROSOFT_CLIENT_SECRET
+    [backup_microsoft_tenant]=HBOX_BACKUP_MICROSOFT_TENANT
+    [backup_dropbox_client_id]=HBOX_BACKUP_DROPBOX_CLIENT_ID
+    [backup_dropbox_client_secret]=HBOX_BACKUP_DROPBOX_CLIENT_SECRET
+    [backup_allow_custom_endpoints]=HBOX_BACKUP_ALLOW_CUSTOM_ENDPOINTS
+)
+for option in "${!backup_options[@]}"; do
+    if bashio::config.has_value "${option}"; then
+        value=$(bashio::config "${option}")
+        export "${backup_options[${option}]}=${value}"
+    fi
+done
 
 bashio::log.info "Starting Homebox..."
 

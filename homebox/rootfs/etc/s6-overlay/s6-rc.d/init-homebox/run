@@ -5,6 +5,7 @@
 # Prepares the data directory
 # ==============================================================================
 declare pepper
+declare backup_key
 
 # Everything Homebox writes lives here: the SQLite database, and every photo,
 # receipt and manual attached to an item.
@@ -20,4 +21,16 @@ if ! bashio::fs.file_exists "/data/homebox/api_key_pepper"; then
     pepper=$(head -c 48 /dev/urandom | base64 | tr -d '\n')
     printf '%s' "${pepper}" > /data/homebox/api_key_pepper
     chmod 600 /data/homebox/api_key_pepper
+fi
+
+# Homebox seals the credentials and refresh tokens of its backup destinations
+# with this key. Changing it makes everything stored under the old one
+# unreadable, so it is generated once and kept alongside the database.
+mkdir -p /data/homebox/backups
+if ! bashio::fs.file_exists "/data/homebox/backup_encryption_key"; then
+    bashio::log.info "Generating a backup encryption key..."
+
+    backup_key=$(head -c 32 /dev/urandom | base64 | tr -d '\n')
+    printf '%s' "${backup_key}" > /data/homebox/backup_encryption_key
+    chmod 600 /data/homebox/backup_encryption_key
 fi

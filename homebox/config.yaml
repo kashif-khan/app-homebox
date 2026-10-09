@@ -52,6 +52,14 @@ schema:
   oidc_name_claim: str?
   oidc_auto_redirect: bool?
   oidc_verify_email: bool?
+  backup_google_client_id: str?
+  backup_google_client_secret: password?
+  backup_microsoft_client_id: str?
+  backup_microsoft_client_secret: password?
+  backup_microsoft_tenant: str?
+  backup_dropbox_client_id: str?
+  backup_dropbox_client_secret: password?
+  backup_allow_custom_endpoints: bool?
   ssl: bool
   certfile: str
   keyfile: str

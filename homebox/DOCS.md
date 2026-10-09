@@ -221,6 +221,66 @@ Sends users straight to the provider instead of showing the login form.
 
 Requires the provider to report the email address as verified.
 
+### Backups to cloud drives
+
+Homebox can back itself up on a schedule to a place of your choosing. Local
+folders (under this app's own data), Google Drive, OneDrive and Dropbox are
+available once configured; SFTP, WebDAV and SMB need
+[`backup_allow_custom_endpoints`](#option-backup_allow_custom_endpoints). The
+destinations are managed inside Homebox, on its backup settings page.
+
+The credentials and refresh tokens Homebox stores for them are sealed with a key
+this app generates on first start and keeps in its data folder. It is part of
+Home Assistant backups, so a restored app can still read them.
+
+A drive is only offered once you register an OAuth app with it and fill in its
+options below. This is separate from signing in with
+[OIDC](#option-oidc_enabled): signing in only proves who you are, while a
+backup needs permission to write files to your drive. You approve that once, from
+Homebox, and the app keeps the resulting token so later backups run on their
+own. Register `https://<your-address>/api/v1/group/backup-oauth/callback` as the
+redirect URI of the OAuth app, using the same [`base_url`](#option-base_url)
+address as for single sign-on.
+
+### Option: `backup_google_client_id`
+
+The client ID of the Google OAuth app for Google Drive backups. It can be the
+same OAuth client as single sign-on, as long as the backup redirect URI above is
+added to it. Homebox only asks for access to files it created itself.
+
+### Option: `backup_google_client_secret`
+
+The client secret that goes with `backup_google_client_id`.
+
+### Option: `backup_microsoft_client_id`
+
+The application (client) ID of the Microsoft Entra app for OneDrive backups.
+
+### Option: `backup_microsoft_client_secret`
+
+The client secret that goes with `backup_microsoft_client_id`.
+
+### Option: `backup_microsoft_tenant`
+
+Who may connect a OneDrive. Leave it empty for `common`, which is any account,
+or use a tenant ID, `consumers` or `organizations` to narrow it down.
+
+### Option: `backup_dropbox_client_id`
+
+The app key of the Dropbox app for Dropbox backups.
+
+### Option: `backup_dropbox_client_secret`
+
+The app secret that goes with `backup_dropbox_client_id`.
+
+### Option: `backup_allow_custom_endpoints`
+
+Lets collection owners point backups at SFTP, WebDAV and SMB servers, and at
+S3-compatible endpoints, of their choosing. Every one of those is a connection
+this app makes to wherever it can reach on your network, so it is off by
+default. Turn it on only when everybody who owns a collection in Homebox is
+somebody you trust with that.
+
 ### Option: `ssl`
 
 Enables/Disables SSL (HTTPS) on the web interface. Set it `true` to enable it,
