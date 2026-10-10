@@ -180,7 +180,7 @@ Connect an assistant at `http://<your-address>:7745/mcp` (see
 call your server from the internet, so they need a public `https` address: set
 [`base_url`](#option-base_url) to it, for example `https://homebox.example.com`.
 Clients that run on your own network can use an API key from **Profile → API
-Keys** instead. Homebox's own documentation, under *AI Assistants (MCP)*, covers
+Keys** instead. Homebox's own documentation, under _AI Assistants (MCP)_, covers
 connecting each client.
 
 ### Option: `mcp_allow_writes`
