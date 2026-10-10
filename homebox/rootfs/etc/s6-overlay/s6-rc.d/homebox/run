@@ -83,6 +83,16 @@ if bashio::config.has_value 'smtp_host'; then
         HBOX_MAILER_USERNAME HBOX_MAILER_PASSWORD
 fi
 
+# AI assistants (Claude, ChatGPT, Cursor, ...) working with the inventory over
+# the Model Context Protocol. Off unless asked for. Each collection's owner still
+# has to allow it inside Homebox, and these two only ever narrow what is allowed.
+if bashio::config.true 'mcp_enabled'; then
+    export HBOX_MCP_ENABLED="true"
+    HBOX_MCP_ALLOW_WRITES=$(bashio::config 'mcp_allow_writes' 'true')
+    HBOX_MCP_ALLOW_DELETE=$(bashio::config 'mcp_allow_delete' 'false')
+    export HBOX_MCP_ALLOW_WRITES HBOX_MCP_ALLOW_DELETE
+fi
+
 HBOX_OPTIONS_ALLOW_LOCAL_LOGIN=$(bashio::config 'allow_local_login' 'true')
 export HBOX_OPTIONS_ALLOW_LOCAL_LOGIN
 

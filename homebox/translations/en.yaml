@@ -58,6 +58,25 @@ configuration:
     description: >-
       Lets people sign in with a username and password. Turn it off only once single
       sign-on works, or you will lock yourself out.
+  mcp_enabled:
+    name: AI assistants (MCP)
+    description: >-
+      Lets AI assistants such as Claude or ChatGPT search and, where you allow it,
+      change your inventory. Off by default. Turning it on is not enough on its own:
+      the owner of each collection also has to allow it under Collection, Settings,
+      AI assistant access, and every connection is limited to what its user approved.
+      Hosted assistants need a public https address, so set Base URL as well.
+  mcp_allow_writes:
+    name: AI assistants may change things
+    description: >-
+      When off, AI assistants can only read your inventory, whatever the collection
+      settings say. Only used when AI assistants (MCP) is on.
+  mcp_allow_delete:
+    name: AI assistants may delete things
+    description: >-
+      Lets AI assistants delete items, tags, templates and maintenance entries, after
+      the user confirms each one. Off by default. Needs "AI assistants may change
+      things". Only used when AI assistants (MCP) is on.
   oidc_enabled:
     name: Single sign-on (OIDC)
     description: >-

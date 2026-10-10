@@ -165,6 +165,37 @@ The password that goes with the SMTP username.
 Allows signing in with a username and password, and is `true` by default. Turn
 it off only once single sign-on works, or you will lock yourself out.
 
+### Option: `mcp_enabled`
+
+Lets AI assistants such as Claude, ChatGPT, Cursor or Claude Code work with your
+inventory over the [Model Context Protocol][mcp], and is `false` by default.
+
+Turning it on is only the first of three switches. The owner of each collection
+must also allow it, under **Collection → Settings → AI assistant access**, and
+every assistant is limited to the permissions its user approved. The weakest of
+the three wins.
+
+Connect an assistant at `http://<your-address>:7745/mcp` (see
+[direct access](#direct-access)). Hosted assistants such as claude.ai and ChatGPT
+call your server from the internet, so they need a public `https` address: set
+[`base_url`](#option-base_url) to it, for example `https://homebox.example.com`.
+Clients that run on your own network can use an API key from **Profile → API
+Keys** instead. Homebox's own documentation, under *AI Assistants (MCP)*, covers
+connecting each client.
+
+### Option: `mcp_allow_writes`
+
+Is `true` by default and only applies when [`mcp_enabled`](#option-mcp_enabled)
+is on. Set it to `false` to make every AI assistant read-only, whatever the
+collection settings say.
+
+### Option: `mcp_allow_delete`
+
+Is `false` by default and only applies when [`mcp_enabled`](#option-mcp_enabled)
+is on. Lets AI assistants delete items, tags, templates and maintenance entries,
+after the user confirms each deletion. Needs
+[`mcp_allow_writes`](#option-mcp_allow_writes).
+
 ### Option: `oidc_enabled`
 
 Turns on single sign-on through an OpenID Connect provider such as Authentik,
@@ -433,6 +464,7 @@ SOFTWARE.
 [frenck]: https://github.com/frenck
 [homebox]: https://homebox.software/
 [issue]: https://github.com/hassio-addons/app-homebox/issues
+[mcp]: https://modelcontextprotocol.io
 [nginx-proxy-manager]: https://github.com/hassio-addons/app-nginx-proxy-manager
 [reddit]: https://reddit.com/r/homeassistant
 [releases]: https://github.com/hassio-addons/app-homebox/releases

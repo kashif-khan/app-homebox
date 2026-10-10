@@ -26,6 +26,9 @@ options:
   max_upload_size: 10
   allow_local_login: true
   oidc_enabled: false
+  mcp_enabled: false
+  mcp_allow_writes: true
+  mcp_allow_delete: false
   ssl: false
   certfile: fullchain.pem
   keyfile: privkey.pem
@@ -60,6 +63,9 @@ schema:
   backup_dropbox_client_id: str?
   backup_dropbox_client_secret: password?
   backup_allow_custom_endpoints: bool?
+  mcp_enabled: bool
+  mcp_allow_writes: bool
+  mcp_allow_delete: bool
   ssl: bool
   certfile: str
   keyfile: str
