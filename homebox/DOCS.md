@@ -196,6 +196,19 @@ is on. Lets AI assistants delete items, tags, templates and maintenance entries,
 after the user confirms each deletion. Needs
 [`mcp_allow_writes`](#option-mcp_allow_writes).
 
+### Option: `webhooks_enabled`
+
+Lets Homebox send signed HTTP callbacks (webhooks) to other systems when
+something happens, and is `false` by default. Once on, add them under
+**Collection → Webhooks**. Typical uses are a Home Assistant automation that
+reacts to `expiry.upcoming` or `item.quantity_changed`, or an n8n workflow.
+
+Each delivery is signed with a secret shown once when you create the webhook, is
+retried for up to 24 hours if the receiver is down, and says how late it is if it
+was delayed. Destinations on your local network are allowed; loopback and
+cloud-metadata addresses are refused. Homebox's own documentation, under
+_Webhooks_, has the event list and how to verify a signature.
+
 ### Option: `oidc_enabled`
 
 Turns on single sign-on through an OpenID Connect provider such as Authentik,

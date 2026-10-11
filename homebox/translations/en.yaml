@@ -77,6 +77,13 @@ configuration:
       Lets AI assistants delete items, tags, templates and maintenance entries, after
       the user confirms each one. Off by default. Needs "AI assistants may change
       things". Only used when AI assistants (MCP) is on.
+  webhooks_enabled:
+    name: Webhooks
+    description: >-
+      Lets Homebox call other systems, such as Home Assistant automations or n8n, when
+      something happens: an item changes, something is about to expire, a backup
+      fails. Each call is signed and retried. Off by default. Set them up under
+      Collection, Webhooks.
   oidc_enabled:
     name: Single sign-on (OIDC)
     description: >-

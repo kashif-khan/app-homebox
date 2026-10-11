@@ -93,6 +93,12 @@ if bashio::config.true 'mcp_enabled'; then
     export HBOX_MCP_ALLOW_WRITES HBOX_MCP_ALLOW_DELETE
 fi
 
+# Outbound webhooks: signed HTTP callbacks to n8n, Home Assistant automations and
+# similar when something happens in Homebox. Off unless asked for.
+if bashio::config.true 'webhooks_enabled'; then
+    export HBOX_WEBHOOKS_ENABLED="true"
+fi
+
 HBOX_OPTIONS_ALLOW_LOCAL_LOGIN=$(bashio::config 'allow_local_login' 'true')
 export HBOX_OPTIONS_ALLOW_LOCAL_LOGIN
 

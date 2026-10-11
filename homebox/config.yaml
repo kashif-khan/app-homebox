@@ -29,6 +29,7 @@ options:
   mcp_enabled: false
   mcp_allow_writes: true
   mcp_allow_delete: false
+  webhooks_enabled: false
   ssl: false
   certfile: fullchain.pem
   keyfile: privkey.pem
@@ -66,6 +67,7 @@ schema:
   mcp_enabled: bool
   mcp_allow_writes: bool
   mcp_allow_delete: bool
+  webhooks_enabled: bool
   ssl: bool
   certfile: str
   keyfile: str
