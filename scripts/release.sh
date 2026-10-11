@@ -2,13 +2,17 @@
 # Publish a new app version: pin the fork tag in the Dockerfile and create the
 # GitHub release. The release triggers the build and the store update.
 #
-# Usage: scripts/release.sh <version>      e.g. scripts/release.sh 0.27.0-rc.1-kk.6
+# Usage: scripts/release.sh <version>      e.g. scripts/release.sh 0.27.0.11
 #
+# Versions are four plain numbers: upstream major.minor.patch plus our own
+# counter (0.27.0.11). Home Assistant cannot order versions like
+# 0.27.0-rc.1-kk.9, so it never offers those as an update in the UI.
+# Releases are marked as pre-releases unless FINAL=1 is set.#
 # The tag v<version> must already exist on kashif-khan/homebox.
 #
 # The release notes become the app's changelog in the store. Put them in a file
 # and pass its path as NOTES_FILE; without one a one-line note is used.
-#   NOTES_FILE=notes.md scripts/release.sh 0.27.0-rc.1-kk.8
+#   NOTES_FILE=notes.md scripts/release.sh 0.27.0.11
 set -euo pipefail
 
 FORK_REPO="kashif-khan/homebox"
@@ -23,8 +27,9 @@ die() {
 [[ -z "${NOTES_FILE:-}" || -f "${NOTES_FILE}" ]] || die "NOTES_FILE ${NOTES_FILE} does not exist"
 
 version="${1:-}"
-[[ -n "${version}" ]] || die "usage: $0 <version>   e.g. 0.27.0-rc.1-kk.6"
+[[ -n "${version}" ]] || die "usage: $0 <version>   e.g. 0.27.0.11"
 version="${version#v}"
+[[ "${version}" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]] || die "version must be four numbers like 0.27.0.11"
 tag="v${version}"
 
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
@@ -46,7 +51,7 @@ git diff --quiet || changed=1
 [[ "${changed:-0}" == "1" ]] || echo "Dockerfile already pins ${version}"
 
 prerelease=()
-[[ "${version}" == *-* ]] && prerelease=(--prerelease)
+[[ "${FINAL:-0}" == "1" ]] || prerelease=(--prerelease)
 
 echo "About to publish ${tag} on ${APP_REPO} from ${BRANCH}${prerelease:+ (pre-release)}."
 read -r -p "Continue? [y/N] " answer

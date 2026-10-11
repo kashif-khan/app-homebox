@@ -19,6 +19,11 @@ Home Assistant Community Apps layout:
 
 ## Releasing
 
+Versions are four plain numbers, `major.minor.patch.n` (for example `0.27.0.11`):
+the upstream version plus our own counter. Do not use suffixes such as
+`-rc.1-kk.9`: Home Assistant cannot order them, so the app's Update button
+stays disabled even though the Supervisor sees the new version.
+
 Short version: do step 1 by hand, then run `scripts/release.sh <version>`, which
 does steps 2 and 3 after asking you to confirm.
 
