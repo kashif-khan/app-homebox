@@ -209,6 +209,28 @@ was delayed. Destinations on your local network are allowed; loopback and
 cloud-metadata addresses are refused. Homebox's own documentation, under
 _Webhooks_, has the event list and how to verify a signature.
 
+### Option: `product_lookup_url`
+
+The address of the [Scrapling Barcode app][scrapling-barcode], which finds
+product details on the web. Leave it empty, which is the default, to leave
+product lookup off. Once set, every item has a **Find product details** action in
+its menu. The search runs in the background and the matches wait on the item,
+with **Review** and **Dismiss** buttons. Nothing about the item changes until you
+choose a match and the details you want from it, and details you have already
+filled in are not selected by default.
+
+Use the app's address from its **Info** page: `http://<hostname>:8787`.
+
+### Option: `product_lookup_token`
+
+The access token of the Scrapling Barcode app, which that app prints in its log
+when it generates one, or which you set in its options.
+
+### Option: `product_lookup_auto`
+
+Looks up every new item without being asked, and is `false` by default. Items
+added through an import are not looked up, only ones created one at a time.
+
 ### Option: `oidc_enabled`
 
 Turns on single sign-on through an OpenID Connect provider such as Authentik,
@@ -481,4 +503,5 @@ SOFTWARE.
 [nginx-proxy-manager]: https://github.com/hassio-addons/app-nginx-proxy-manager
 [reddit]: https://reddit.com/r/homeassistant
 [releases]: https://github.com/hassio-addons/app-homebox/releases
+[scrapling-barcode]: https://github.com/kashif-khan/scrapling-barcode
 [semver]: https://semver.org/spec/v2.0.0.html
