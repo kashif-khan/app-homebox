@@ -99,6 +99,21 @@ if bashio::config.true 'webhooks_enabled'; then
     export HBOX_WEBHOOKS_ENABLED="true"
 fi
 
+# Product details found on the web by the Scrapling Barcode app. Off unless an
+# address is given; the token and the automatic lookup only matter once it is.
+if bashio::config.has_value 'product_lookup_url'; then
+    HBOX_BARCODE_ENRICH_URL=$(bashio::config 'product_lookup_url')
+    export HBOX_BARCODE_ENRICH_URL
+
+    if bashio::config.has_value 'product_lookup_token'; then
+        HBOX_BARCODE_ENRICH_TOKEN=$(bashio::config 'product_lookup_token')
+        export HBOX_BARCODE_ENRICH_TOKEN
+    fi
+
+    HBOX_BARCODE_ENRICH_AUTO=$(bashio::config 'product_lookup_auto' 'false')
+    export HBOX_BARCODE_ENRICH_AUTO
+fi
+
 HBOX_OPTIONS_ALLOW_LOCAL_LOGIN=$(bashio::config 'allow_local_login' 'true')
 export HBOX_OPTIONS_ALLOW_LOCAL_LOGIN
 
