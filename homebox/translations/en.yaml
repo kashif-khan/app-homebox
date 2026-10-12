@@ -87,9 +87,10 @@ configuration:
   product_lookup_url:
     name: Product lookup address
     description: >-
-      The address of the Scrapling Barcode app, which finds product details for an
-      item on the web. Example: `http://<hostname of that app>:8787`. Leave it empty
-      to leave product lookup off.
+      Optional. The address of the Scrapling Barcode app, used by every collection
+      that has not set its own. You can set this per collection inside Homebox
+      under Collection, Product lookup instead, which is easier. Example:
+      `http://<hostname of that app>:8787`.
   product_lookup_token:
     name: Product lookup token
     description: >-

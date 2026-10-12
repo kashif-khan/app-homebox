@@ -211,15 +211,21 @@ _Webhooks_, has the event list and how to verify a signature.
 
 ### Option: `product_lookup_url`
 
-The address of the [Scrapling Barcode app][scrapling-barcode], which finds
-product details on the web. Leave it empty, which is the default, to leave
-product lookup off. Once set, every item has a **Find product details** action in
-its menu. The search runs in the background and the matches wait on the item,
+You do not need this. Product lookup is set up from inside Homebox, under
+**Collection → Product lookup**: enter the address and token of the
+[Scrapling Barcode app][scrapling-barcode], press **Test connection**, and save.
+That is per collection and takes effect straight away.
+
+These three options are for setting it once for every collection from here
+instead. They are used by collections that have not set their own, and are
+empty and off by default. The address is the app's hostname from its **Info**
+page: `http://<hostname>:8787`.
+
+Once product lookup is set up, every item has a **Find product details** action
+in its menu. The search runs in the background and the matches wait on the item,
 with **Review** and **Dismiss** buttons. Nothing about the item changes until you
 choose a match and the details you want from it, and details you have already
 filled in are not selected by default.
-
-Use the app's address from its **Info** page: `http://<hostname>:8787`.
 
 ### Option: `product_lookup_token`
 
